@@ -9,6 +9,7 @@ class AdbWrapper(object):
         self.cmdAdb = 'adb'
         self.adbArgShell = 'shell'
         self.adbArgPull = 'pull'
+        self.adbArgPush = 'install'
         self.cmdCloseShell = 'exit'
         self.cmdListPackages = b'pm list packages -3'
         self.cmdGetPathOfApk = b'pm path '
@@ -47,11 +48,21 @@ class AdbWrapper(object):
             ret = True;
         return ret
 
+    def Push(self, fileName):        
+        fileLocation= os.path.join(self.LocalApkDirectory,fileName)
+        execResult=subprocess.run([self.adbFullPath, self.adbArgPush, fileLocation], capture_output=True, shell=True)
+        outputTxt=execResult.stdout.decode('ascii')
+        ret = False
+        successToken="Success"
+        if(successToken in outputTxt):
+            ret = True;
+        return ret
+
+
     def EnumLocalPackages(self):
         files = []
         # r=root, d=directories, f = files
         for r, d, f in os.walk(self.LocalApkDirectory):
             for file in f:
-                fullPath = os.path.join(r, file)
-                files.append(fullPath)
+                files.append(file)
         return files

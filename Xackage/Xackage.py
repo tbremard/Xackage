@@ -16,8 +16,10 @@ class Xackage(object):
 
     def PushPackages(self):
         packages = self._adbWrapper.EnumLocalPackages()
-        self._log.debug('Identified '+ str(len(packages))+ ' packages to be pushed to device')
-
+        self._log.debug('Identified '+ str(len(packages))+ ' packages to be pushed (installed) to device')
+        for package in packages:
+            isPushed = self._adbWrapper.Push(package)
+            self._log.debug(package + ':' + str(isPushed)  )
 
 
 
