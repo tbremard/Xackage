@@ -15,4 +15,4 @@ do NOT backup other things like Photo/Contact/Sounds...
 
 Xackage in action:
 
-![Pulling](ScreenShot/xackage_1.jpg "pulling packages")
+![Pulling](ScreenShots/xackage_1.jpg "pulling packages")
