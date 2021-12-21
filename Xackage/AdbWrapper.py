@@ -5,7 +5,7 @@ import CoreObjects
 
 class AdbWrapper(object):
     def __init__(self):
-        self.LocalApkDirectory="ApkDirectory/"
+        self.LocalApkDirectory="ApkDirectory"
         self.cmdAdb = 'adb'
         self.adbArgShell = 'shell'
         self.adbArgPull = 'pull'
@@ -38,7 +38,7 @@ class AdbWrapper(object):
 
     def Pull(self, package):
         self.CreateDirectoryIfNeeded(self.LocalApkDirectory)
-        targetLocation=self.LocalApkDirectory+package.Name+".apk"
+        targetLocation= os.path.join(self.LocalApkDirectory,package.Name)+".apk"
         execResult=subprocess.run([self.adbFullPath, self.adbArgPull, package.Path,  targetLocation], capture_output=True, shell=True)
         outputTxt=execResult.stdout.decode('ascii')
         ret = False
@@ -47,3 +47,11 @@ class AdbWrapper(object):
             ret = True;
         return ret
 
+    def EnumLocalPackages(self):
+        files = []
+        # r=root, d=directories, f = files
+        for r, d, f in os.walk(self.LocalApkDirectory):
+            for file in f:
+                fullPath = os.path.join(r, file)
+                files.append(fullPath)
+        return files

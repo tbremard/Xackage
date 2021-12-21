@@ -4,13 +4,18 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>68f33442-4b92-4b27-8c70-7e638f724f1a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Xackage.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Xackage</Name>
     <RootNamespace>Xackage</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterArguments>
+    </InterpreterArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <CommandLineArguments>push topush</CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,7 +35,10 @@
     <Compile Include="MyLogger.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Xackage.py" />
+    <Compile Include="main.py" />
+    <Compile Include="Xackage.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
