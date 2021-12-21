@@ -6,7 +6,7 @@ myLogger = MyLogger.MyLogger()
 myLogger.SetupLogger()
 _log = myLogger.GetLogger()
 _log.debug('##############################');
-_log.debug('##  Starting Xackage        ##');
+_log.debug('##  Xackage                 ##');
 _log.debug('##  Thierry Bremard         ##');
 _log.debug('##  t.bremard@gmail.com     ##');
 _log.debug('Download all ThirdParty packages from Android device.');
@@ -16,4 +16,6 @@ packages = adbWrapper.EnumThirdPartyPackages()
 _log.debug('Identified '+ str(len(packages))+ ' packages')
 for package in packages:
     package.Path = adbWrapper.GetPath(package.Name)
-    print(package.Name + ':' + package.Path )
+    isPulled = adbWrapper.Pull(package)
+    _log.debug(package.Name + ':' + str(isPulled)  )
+

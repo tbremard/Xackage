@@ -5,12 +5,18 @@ import CoreObjects
 
 class AdbWrapper(object):
     def __init__(self):
+        self.LocalApkDirectory="ApkDirectory/"
         self.cmdAdb = 'adb'
         self.adbArgShell = 'shell'
+        self.adbArgPull = 'pull'
         self.cmdCloseShell = 'exit'
         self.cmdListPackages = b'pm list packages -3'
-        self.cmdGetPathOfApk = 'pm path com.skype.raider'
+        self.cmdGetPathOfApk = b'pm path '
         self.adbFullPath=shutil.which(self.cmdAdb)
+
+    def CreateDirectoryIfNeeded(self, dir):
+        if not os.path.exists(dir):
+            os.makedirs(dir)
 
     def EnumThirdPartyPackages(self):
         execResult=subprocess.run([self.adbFullPath, self.adbArgShell], input=self.cmdListPackages, capture_output=True, shell=True)
@@ -24,6 +30,20 @@ class AdbWrapper(object):
         return validPackages
 
     def GetPath(self, packageName):
-        ret = 'xxxxxxx'
+        inputcmd = self.cmdGetPathOfApk+packageName.encode('ascii')
+        execResult=subprocess.run([self.adbFullPath, self.adbArgShell], input=inputcmd, capture_output=True, shell=True)
+        outputTxt=execResult.stdout.decode('ascii')
+        ret = outputTxt.replace('package:', '').rstrip()
+        return ret
+
+    def Pull(self, package):
+        self.CreateDirectoryIfNeeded(self.LocalApkDirectory)
+        targetLocation=self.LocalApkDirectory+package.Name+".apk"
+        execResult=subprocess.run([self.adbFullPath, self.adbArgPull, package.Path,  targetLocation], capture_output=True, shell=True)
+        outputTxt=execResult.stdout.decode('ascii')
+        ret = False
+        successToken="1 file pulled"
+        if(successToken in outputTxt):
+            ret = True;
         return ret
 
