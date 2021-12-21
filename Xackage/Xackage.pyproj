@@ -21,6 +21,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AdbWrapper.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CoreObjects.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MyLogger.py">
       <SubType>Code</SubType>
     </Compile>
