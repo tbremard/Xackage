@@ -2,6 +2,7 @@ import os
 import subprocess
 import shutil
 import CoreObjects
+import time
 
 class AdbWrapper(object):
     def __init__(self):
@@ -33,8 +34,10 @@ class AdbWrapper(object):
     def GetPath(self, packageName):
         inputcmd = self.cmdGetPathOfApk+packageName.encode('ascii')
         execResult=subprocess.run([self.adbFullPath, self.adbArgShell], input=inputcmd, capture_output=True, shell=True)
-        outputTxt=execResult.stdout.decode('ascii')
-        ret = outputTxt.replace('package:', '').rstrip()
+        outputBulk=execResult.stdout.decode('ascii')
+        fileList = outputBulk.splitlines()
+        firstApk = fileList[0]
+        ret = firstApk.replace('package:', '').rstrip()
         return ret
 
     def Pull(self, package):
@@ -57,7 +60,6 @@ class AdbWrapper(object):
         if(successToken in outputTxt):
             ret = True;
         return ret
-
 
     def EnumLocalPackages(self):
         files = []
