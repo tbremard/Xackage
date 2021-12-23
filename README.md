@@ -16,8 +16,9 @@ https://www.youtube.com/watch?v=UT4ZoD5rI2U
 Xackage in action:
 ![Pulling](Screenshots/xackage_1.jpg "pulling packages")
 
-
 Example of usage:
+
+
 Xackage>python main.py pull ApkDirectory_TBR
 2021-12-21 11:25:18,672 [DEBUG] ##############################
 2021-12-21 11:25:18,672 [DEBUG] ##  Xackage                 ##
@@ -35,6 +36,8 @@ Xackage>python main.py pull ApkDirectory_TBR
 2021-12-21 11:25:26,424 [DEBUG] com.google.android.apps.docs.editors.docs:True
 
 Xackage>python main.py push ApkDirectory_TBR
+
+
 2021-12-21 11:27:27,164 [DEBUG] ##############################
 2021-12-21 11:27:27,165 [DEBUG] ##  Xackage                 ##
 2021-12-21 11:27:27,165 [DEBUG] ##  Thierry Bremard         ##
