@@ -14,7 +14,10 @@ class AdbWrapper(object):
         self.cmdCloseShell = 'exit'
         self.cmdListPackages = b'pm list packages -3'
         self.cmdGetPathOfApk = b'pm path '
+        self.cmdDisableApkCheck = b'settings put global package_verifier_enable 0'
         self.adbFullPath=shutil.which(self.cmdAdb)
+        if(self.adbFullPath==None):
+            raise FileNotFoundError('['+self.cmdAdb+'] cannot be found: Ensure Android SDK is installed and in PATH')
 
     def CreateDirectoryIfNeeded(self, dir):
         if not os.path.exists(dir):
@@ -60,6 +63,11 @@ class AdbWrapper(object):
         if(successToken in outputTxt):
             ret = True;
         return ret
+
+    def DisableApkCheck(self):
+        inputcmd = self.cmdDisableApkCheck
+        execResult=subprocess.run([self.adbFullPath, self.adbArgShell], input=inputcmd, capture_output=True, shell=True)
+        outputBulk=execResult.stdout.decode('ascii')
 
     def EnumLocalPackages(self):
         files = []

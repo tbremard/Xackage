@@ -21,7 +21,11 @@ function = sys.argv[1]
 targetDir = None
 if(len(sys.argv)>2):
     targetDir = sys.argv[2]  
-adbWrapper = AdbWrapper.AdbWrapper()
+try:
+    adbWrapper = AdbWrapper.AdbWrapper()
+except FileNotFoundError as ex:
+    _log.error(ex.args)
+    exit(-1)
 if(targetDir != None):
     adbWrapper.LocalApkDirectory=targetDir
 _log.debug('LocalApkDirectory: ' +adbWrapper.LocalApkDirectory)

@@ -5,6 +5,7 @@ class Xackage(object):
         self._adbWrapper = adbWrapper
         myLogger = MyLogger.MyLogger()
         self._log = myLogger.GetLogger()
+        self._adbWrapper.DisableApkCheck()
 
     def PullPackages(self):
         packages = self._adbWrapper.EnumThirdPartyPackages()
